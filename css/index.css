@@ -42,14 +42,14 @@ form {
    justify-content: center;
 }
 
-label {
+form label {
     display: block;
     margin: 10px;
 }
 
 input {
     width: 100%;
-    padding: 10px;
+    padding: 10px 0;
     margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -69,11 +69,12 @@ button:hover {
 }
 
 .links {
-    margin-top: 10px;
+   margin-top: 15px;
 }
 
 .links a {
     display: block;
+    margin-top: 10px;
     color: #007BFF;
     text-decoration: none;
 }
@@ -81,14 +82,3 @@ button:hover {
 .links a:hover {
     text-decoration: underline;
 }
-
-
-
-
-
-
-
-       
-
-    
-
