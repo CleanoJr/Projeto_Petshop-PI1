@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="./css/index.css">
+   <link rel="icon" href="./assets/logo.jpg" type="image/x-icon">
+   <title>Codigo de verificação</title>
+</head>
+
+<body>
+   <div class="container">
+      <div class="logo">
+         <img src="./assets/logo.jpg" alt="Logo do Pet Shop">
+         <h1>Pet Shop</h1>
+      </div>
+
+      <h3>Insira o código de 6 digitos que foi enviado para o seu e-mail</h3>
+      <p>exemplo.usuario@gmail.com</p>
+      <input type="text" maxlength="6" pattern="\d{6}" placeholder="Código de verificação" oninput="this.value = this.value.replace(/\D/g, '')">
+      <form id="loginForm">
+         <button type="submit">Continuar</button>
+      </form>
+      
+      <div class="links">
+        <p>Não recebeu nenhum código</p>
+         <button type="submit">Reenviar código</button>
+      </div>
+   </div>
+   <script src="./js/index.js"></script>
+</body>
+
+</html>
