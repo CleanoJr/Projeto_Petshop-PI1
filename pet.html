@@ -4,7 +4,7 @@
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>PetShop-Clientes</title>
+   <title>PetShop-Pet</title>
    <link rel="stylesheet" href="./css/usuarios.css">
    <link rel="icon" href="./assets/logo.jpg" type="image/x-icon">
    <!-- Importação do Font Awesome para os ícones -->
@@ -29,34 +29,42 @@
    <!-- Conteúdo principal -->
    <main>
       <div id="home">
-         <h1>Clientes</h1>
+         <h1>Pet</h1>
       </div>
       <div class="container">
          <h3>Campo de busca</h3>
 
          <div class="search-form">
             <input type="text" placeholder="Nome">
+            <input type="text" placeholder="Dono">
             <br>
+            <select name="filtro" id="filtro">
+               <option value="">Espécie </option>
+               <option value="Cliente">Câes</option>
+               <option value="Serviço">Gatos</option>
+               <option value="Profissional">Roedores</option>
+               <option value="Profissional">Aves</option>
+               <option value="Profissional">Peixes</option>
+               <option value="Profissional">Répteis</option>
+            </select>
          </div>  
          <!-- <button class="btn btn-new">Novo Usuário</button> -->   
          <div class="btn">      
          <button class="btn">Pesquisar</button>
-         <button class="btn">Novo Cliente</button>
          </div>
          <table>
             <thead>
                <tr>
-                  <th>Cliente</th>
-                  <th>E-mail</th>
-                  <th>Telefone</th>
+                  <th>Pet</th>
+                  <th>Dono</th>
+                  <th>Espécie</th>
                   <th>Ações</th>
                </tr>
             </thead>
             <tbody>
                <tr>
+                  <td>Jack</td>
                   <td>Victor Franklin Alves</td>
-                  <td>victoralves@petshp.com.br</td>
-                  <td> 88 94040-2756</td>
                   <td> 
                      <button class="btn-action" title="Editar">
                         <i class="fas fa-edit"></i>
@@ -67,9 +75,8 @@
                   </td>
                </tr>
                <tr>
+                  <td>Bidu</td>
                   <td>Daniela Cristina do Carmo</td>
-                  <td>danielacristina@petshp.com.br</td>
-                  <td> 88 99030-2756</td>
                   <td> 
                      <button class="btn-action" title="Editar">
                         <i class="fas fa-edit"></i>
@@ -80,9 +87,8 @@
                   </td>
                </tr>
                <tr>
+                  <td>Bilu</td>
                   <td>Camila Lopes Mesquita</td>
-                  <td>camilalopes@petshp.com.br</td>
-                  <td> 88 926480-1746</td>
                   <td> 
                      <button class="btn-action" title="Editar">
                         <i class="fas fa-edit"></i>
