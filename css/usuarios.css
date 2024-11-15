@@ -133,11 +133,17 @@ table th {
    background: none;
    border: none;
    cursor: pointer;
-   color: #555;
+   color: #555555;
    font-size: 1.2rem;
    margin: 0 5px;
 }
 
 .btn-action:hover {
+   color: #007bff; /* Cor de destaque ao passar o mouse */
+}
+.btn {
+   color: #f8981b;
+}
+.btn:hover {
    color: #007bff; /* Cor de destaque ao passar o mouse */
 }
