@@ -141,7 +141,7 @@ table th {
 .btn-action:hover {
    color: #007bff; /* Cor de destaque ao passar o mouse */
 }
-.search-form btn {
+.btn {
    color: #f8981b;
 }
 .btn:hover {
