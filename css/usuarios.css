@@ -142,7 +142,12 @@ table th {
    color: #007bff; /* Cor de destaque ao passar o mouse */
 }
 .btn {
-   color: #f8981b;
+   padding: 10px 15px;
+   background-color: #28a745;
+   color: white;
+   border: none;
+   border-radius: 5px;
+   cursor: pointer;
 }
 .btn:hover {
    color: #007bff; /* Cor de destaque ao passar o mouse */
