@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>PetShop</title>
+   <link rel="stylesheet" href="./css/style.css">
+   <link rel="icon" href="./assets/logo.jpg" type="image/x-icon">
+   <!-- Importação do Font Awesome para os ícones -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+
+   <nav>
+      <ul>
+         <li>
+            <div class="logo">
+               <img src="./assets/logo.jpg">
+               <a href="./home.html">PetShop</a>
+            </div>
+         </li>
+         <li><a href="#agenda">Agenda</a></li>
+         <li><a href="#cliente/pet">Cliente/pet</a></li>
+         <li><a href="#servicos">Serviços</a></li>
+         <li><a href="#veterinario">Veterinário</a></li>
+         <li><a href="#usuario">Usuário</a></li>
+      </ul>
+   </nav>
+
+   <!-- Conteúdo principal -->
+
+   <main>
+      <div id="home">
+         <h1>Agendamentos</h1>
+      </div>
+      <div class="container">
+         <h3>Campo de busca</h3>
+
+         <div class="search-form">
+            <input type="text" placeholder="Nome">
+            <select name="filtro" id="filtro">
+               <option value="">Filtrar por: </option>
+               <option value="Cliente">Cliente</option>
+               <option value="Serviço">Serviço</option>
+               <option value="Profissional">Profissional</option>
+            </select>
+
+            <input type="date">
+
+            <select>
+               <option value="">Selecione o Status</option>
+               <option value="ativo">Ativo</option>
+               <option value="cancelado">Cancelado</option>
+               <option value="em andamento">Em andamento</option>
+               <option value="concluido">Concluído</option>
+            </select>
+
+            <button class="btn">Pesquisar</button>
+            <!-- <button class="btn btn-new">Novo Agendamento</button> -->
+         </div>
+         <table>
+            <thead>
+               <tr>
+                  <th>Data</th>
+                  <th>Pet</th>
+                  <th>Serviço</th>
+                  <th>Status</th>
+                  <th>Horário</th>
+                  <th>Profissional</th>
+                  <th>Ações</th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr>
+                  <td>2024-11-20</td>
+                  <td>Bidu</td>
+                  <td>Exames de laboratório</td>
+                  <td>Ativo</td>
+                  <td>15:00</td>
+                  <td>Tamires Alves</td>
+                  <td>
+                     <button class="btn-action" title="Editar">
+                        <i class="fas fa-edit"></i>
+                     </button>
+                     <button class="btn-action" title="Excluir">
+                        <i class="fas fa-trash-alt"></i>
+                     </button>
+                  </td>
+               </tr>
+               <tr>
+                  <td>2024-11-10</td>
+                  <td>Jack</td>
+                  <td>Tosa</td>
+                  <td>Ativo</td>
+                  <td>14:00</td>
+                  <td>João Sousa</td>
+                  <td>
+                     <button class="btn-action" title="Editar">
+                        <i class="fas fa-edit"></i>
+                     </button>
+                     <button class="btn-action" title="Excluir">
+                        <i class="fas fa-trash-alt"></i>
+                     </button>
+                  </td>
+               </tr>
+               <tr>
+                  <td>2024-01-12</td>
+                  <td>Bilu</td>
+                  <td>Banho</td>
+                  <td>Concluído</td>
+                  <td>14:00</td>
+                  <td>João Sousa</td>
+                  <td>
+                     <button class="btn-action" title="Editar">
+                        <i class="fas fa-edit"></i>
+                     </button>
+                     <button class="btn-action" title="Excluir">
+                        <i class="fas fa-trash-alt"></i>
+                     </button>
+                  </td>
+               </tr>
+            </tbody>
+         </table>
+      </div>
+   </main>
+</body>
+
+</html>
