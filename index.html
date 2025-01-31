@@ -4,37 +4,31 @@
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <link rel="stylesheet" href="../static/css/index.css">
-   <link rel="icon" href="./static/assets/logo.jpg" type="image/x-icon">
+   <link rel="stylesheet" href="./css/index.css">
+   <link rel="icon" href="./assets/logo.jpg" type="image/x-icon">
    <title>Login - Pet Shop</title>
 </head>
 
 <body>
    <div class="container">
       <div class="logo">
-         <img src="./static/assets/logo.jpg" alt="Logo do Pet Shop">
+         <img src="./assets/logo.jpg" alt="Logo do Pet Shop">
          <h1>Pet Shop</h1>
       </div>
 
       <h2>Bem-vindo!</h2>
 
-      <form method="POST" action="">
-         <!-- <label for="email">Email</label>
+      <form id="loginForm">
+         <label for="email">Email</label>
          <input type="email" id="email" required>
          <label for="password">Senha</label>
          <input type="password" id="password" required>
-         <button type="submit">Entrar</button> -->
-
-         {{ form.hidden_tag() }}
-         {{ form.username }}
-         {{ form.password }}
-         {{ form.submit }}
-
+         <button type="submit">Entrar</button>
       </form>
       
       <div class="links">
          <a href="Recuperar senha.html">Esqueceu sua senha?</a>
-         <a href="{{url_for('cadastrar_usuario')}}">Criar uma conta</a>
+         <a href="#">Criar uma conta</a>
       </div>
    </div>
    <script src="./js/index.js"></script>
