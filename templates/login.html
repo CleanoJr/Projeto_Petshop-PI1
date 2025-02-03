@@ -21,8 +21,8 @@
 
           <form>
               <div class="mb-3">
-                  <label for="email" class="form-label">Usuário</label>
-                  <input type="email" class="form-control" id="usuario" placeholder="Digite seu usuario" required>
+                  <label for="usuario" class="form-label">Usuário</label>
+                  <input type="text" class="form-control" id="usuario" placeholder="Digite seu usuario" required>
               </div>
 
               <div class="mb-3">
@@ -31,7 +31,7 @@
               </div>
 
               <div class="text-center">
-                  <button type="submit" class="btn btn-primary btn-small">Entrar</button>
+                  <button type="submit" formaction="{{ url_for('logar') }}" class="btn btn-primary btn-small">Entrar</button>
               </div>
           </form>
           

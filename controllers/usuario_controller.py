@@ -11,15 +11,9 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 def index():
     return render_template("index.html")
 
-@app.route("/login")
-def login():
-    return render_template("login.html")
-
-
 @app.route("/usuario/inserir")
 def inserir():
     return render_template("usuario/create.html")
-
 
 @app.route("/usuario/inserir", methods=['POST'])
 def create():   
@@ -43,3 +37,15 @@ def create():
         
         # Retorna para página de login
         return redirect(url_for('login'))
+
+@app.route("/login")
+def login():
+    return render_template("login.html")
+
+@app.route("/logar")
+def logar():
+    return render_template("/agendamento/agendamento.html")
+
+@app.route("/agendamento/novo_agendamento")
+def cad_agendamento():
+    return render_template("/agendamento/create_agendamento.html")
