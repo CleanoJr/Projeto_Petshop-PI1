@@ -5,7 +5,17 @@ from models.usuario_model import *
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
-# rotas
+# Rotas
+
+@app.route("/")
+def index():
+    return render_template("index.html")
+
+@app.route("/login")
+def login():
+    return render_template("login.html")
+
+
 @app.route("/usuario/inserir")
 def inserir():
     return render_template("usuario/create.html")
@@ -33,7 +43,3 @@ def create():
         
         # Retorna para página de login
         return redirect(url_for('login'))
-
-@app.route("/")
-def login():
-    return render_template("login.html")
