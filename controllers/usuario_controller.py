@@ -1,6 +1,8 @@
 from main import app
-from flask import request, render_template, redirect, url_for
+from flask import request, render_template, redirect, url_for, session
 from models.usuario_model import *
+from models.conexao import *
+
 # Criando a sessão para interagir com o banco de dados
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
@@ -10,6 +12,23 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 @app.route("/")
 def index():
     return render_template("index.html")
+
+@app.route("/login")
+def login():
+    return render_template("login.html")
+
+
+@app.route('/logar', methods=['GET', 'POST'])
+def logar():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        
+        # Conectar ao banco de dados
+        conexao = DATABASE_URL
+    
+    return render_template("/agendamento/agendamento.html")
+
 
 @app.route("/usuario/inserir")
 def inserir():
@@ -37,14 +56,6 @@ def create():
         
         # Retorna para página de login
         return redirect(url_for('login'))
-
-@app.route("/login")
-def login():
-    return render_template("login.html")
-
-@app.route("/logar")
-def logar():
-    return render_template("/agendamento/agendamento.html")
 
 @app.route("/agendamento/novo_agendamento")
 def cad_agendamento():

@@ -19,10 +19,11 @@
           <h3 class="text-center spacing">Petshop</h3>
           <h4 class="text-center mb-4">Bem-vindo!</h4>
 
-          <form>
+          <!-- Formulário de Login -->
+          <form action="/logar" method="POST">
               <div class="mb-3">
-                  <label for="usuario" class="form-label">Usuário</label>
-                  <input type="text" class="form-control" id="usuario" placeholder="Digite seu usuario" required>
+                  <label for="username" class="form-label">Usuário</label>
+                  <input type="text" class="form-control" id="username" placeholder="Digite seu usuario" required>
               </div>
 
               <div class="mb-3">
@@ -31,7 +32,7 @@
               </div>
 
               <div class="text-center">
-                  <button type="submit" formaction="{{ url_for('logar') }}" class="btn btn-primary btn-small">Entrar</button>
+                  <button type="submit" class="btn btn-primary btn-small">Entrar</button>
               </div>
           </form>
           
