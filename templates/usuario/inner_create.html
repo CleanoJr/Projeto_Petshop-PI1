@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Novo usuario</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/ae360af17e.js" crossorigin="anonymous" defer></script>
+    <link rel="stylesheet" href="../../static/css/consult_form.css">
+    <link rel="shortcut icon" href="../../static/assets/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    {% include '/includes/menu_nav.html'%}
+    
+    <div class="main">
+        <h2>Novo usuário</h2>
+    </div>
+
+    <div class="form-container">
+        <div class="card card-form">
+            <h4 class="text-left mb-4">Preencha os campos</h4>
+            
+            <form method="POST" action="{{ url_for('create') }}">
+                <div class="mb-2">
+                    <label for="nome" class="form-label">Nome Completo</label>
+                    <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite seu nome completo" required>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-2">
+                        <label for="usuario" class="form-label">Usuário</label>
+                        <input type="text" class="form-control" id="usuario" name="login" placeholder="Escolha um usuário" required>
+                    </div>
+
+                    <div class="col-md-6 mb-2">
+                        <label for="telefone" class="form-label">Telefone</label>
+                        <input type="tel" class="form-control" id="telefone" name="telefone" placeholder="(xx) xxxxx-xxxx" required>
+                    </div>                        
+                </div>
+
+                <div class="mb-2">
+                    <label for="email" class="form-label">E-mail</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Digite seu e-mail" required>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="password" class="form-label">Senha</label>
+                        <input type="password" class="form-control" id="password" name="senha" placeholder="Digite sua senha" required>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label for="confirm-password" class="form-label">Confirmar Senha</label>
+                        <input type="password" class="form-control" id="confirm-password" placeholder="Confirme sua senha" required>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary w-50">Criar</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

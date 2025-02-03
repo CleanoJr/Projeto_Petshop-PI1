@@ -10,42 +10,7 @@
     <link rel="shortcut icon" href="../../static/assets/favicon.ico" type="image/x-icon">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <img src="../../static/assets/logo.jpg" alt="Logo" width="50" height="50" class="d-inline-block align-text-top">
-                <h2>Petshop</h2>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Agenda</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="clientePetDropdown" role="button" data-bs-toggle="dropdown">
-                            Cliente/Pet
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Cliente</a></li>
-                            <li><a class="dropdown-item" href="#">Pet</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Serviços</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Veterinário</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Usuário</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    {% include '/includes/menu_nav.html'%}
     
     <div class="main">
         <h2>Agendamentos</h2>
