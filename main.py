@@ -4,6 +4,7 @@ from flask import Flask
 app = Flask(__name__)
 
 from controllers.usuario_controller import *
+from controllers.cliente_controller import *
 
 #Inicia o servidor de desenvolvimento.
 if __name__ == '__main__':

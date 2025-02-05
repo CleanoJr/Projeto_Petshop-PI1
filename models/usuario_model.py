@@ -3,6 +3,7 @@ from models.conexao import *
 
 class Usuario(Base):
     __tablename__ = "usuarios"
+    
     id = Column("id", Integer, primary_key=True, autoincrement=True)
     nome = Column("nome", String(200))
     login = Column("login", String(200))
