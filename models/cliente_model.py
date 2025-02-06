@@ -1,4 +1,5 @@
 from sqlalchemy import Text, TIMESTAMP
+from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 from models.conexao import *
 
@@ -13,6 +14,9 @@ class Cliente(Base):
     phone = Column("phone", String(15), nullable=False)
     address = Column("address", Text, nullable=False)
     created_at = Column("created at", TIMESTAMP, server_default=func.current_timestamp())
+    
+     #Relacionamento 1:N
+    pets = relationship("pets", back_populates="owner")
 
     def __init__(self, name, cpf, email, phone, address):
         self.name = name

@@ -12,7 +12,7 @@ def cliente():
 @app.route("/cliente/inserir", methods=['POST'])
 def create_client():   
     if request.method == 'POST':      
-        # Captura os dados enviados pelo formulário        
+        # Captura os dados do formulário        
         nome = request.form['nome']
         cpf = request.form['cpf']
         email = request.form['email']   
@@ -22,12 +22,16 @@ def create_client():
         # Cria um novo cliente      
         new_client = Cliente(name=nome, cpf=cpf, email=email, phone=telefone, address=endereco)      
         
-        # Cria a sessão
+        # Cria a sessão com o banco de dados
         db = SessionLocal()
-        
-        # Adiciona o novo usuário ao banco de dados
         db.add(new_client)
         db.commit()
+        db.refresh(new_client)
+
+        # Salva o ID do cliente na sessão
+        session["client_id"] = new_client.client_id
         
-        # Retorna para página de login
-        return redirect(url_for('cliente'))
+        print(f"Cliente ID armazenado na sessão: {session['client_id']}")
+
+        # Redireciona para o cadastro do pet
+        return redirect(url_for('pet'))

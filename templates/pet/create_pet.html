@@ -20,7 +20,8 @@
         <div class="card card-form">
             <h4 class="text-left mb-4">Preencha os campos</h4>
             
-            <form method="POST" action="#">
+            <form action="{{ url_for('create_pet') }}" method="POST">
+                <input type="hidden" name="client_id" value="{{ client_id }}">
                 <div class="mb-2">
                     <label for="nome" class="form-label">Nome</label>
                     <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite o nome do pet" required>
@@ -38,41 +39,9 @@
                     </div>                        
                 </div>
 
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="nascimento" class="form-label">Nascimento</label>
-                        <input type="date" class="form-control" id="nascimento" required>
-                    </div>
-
-                    <div class="col-md-6 mb-3">
-                        <label for="genero" class="form-label">Gênero</label>
-                        <select class="form-select" id="genero">
-                            <option value="macho">Macho</option>
-                            <option value="femea">Fêmea</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-6 mb-2">
-                        <label for="pelagem" class="form-label">Cor/Pelagem</label>
-                        <input type="text" class="form-control" id="pelagem" name="pelagem" placeholder="Digite a cor/pelagem do pet" required>
-                    </div>
-
-                    <div class="col-md-6 mb-2">
-                        <label for="peso" class="form-label">Peso</label>
-                        <input type="text" class="form-control" id="peso" name="raca" placeholder="Kg" required>
-                    </div>                        
-                </div>
-
                 <div class="mb-2">
-                    <label for="responsavel" class="form-label">Responsável</label>
-                    <input type="text" class="form-control" id="responsavel" name="responsavel" placeholder="Digite o nome do responsável" required>
-                </div>
-
-                <div class="mb-3">
-                    <label for="observacoes" class="form-label">Observações</label>
-                    <textarea class="form-control form-control-sm" id="observacoes" name="observacoes" placeholder="Observações referente ao pet" rows="3" required></textarea>
+                    <label for="nascimento" class="form-label">Nascimento</label>
+                    <input type="date" class="form-control" id="nascimento" required>
                 </div>
 
                 <div class="text-center">
