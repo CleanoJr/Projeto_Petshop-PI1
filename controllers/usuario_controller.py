@@ -74,7 +74,12 @@ def create():
 def dashboard():
     if 'usuario_id' not in session:
         return redirect(url_for('login'))
-    return render_template("/agendamento/agendamento.html")
+    
+    db = SessionLocal()
+    usuario = db.query(Usuario).filter(Usuario.id == session['usuario_id']).first()
+    nome_usuario = usuario.nome if usuario else 'Usuário'
+    
+    return render_template("/agendamento/agendamento.html", nome_usuario=nome_usuario)
 
 @app.route("/agendamento/novo_agendamento")
 def cad_agendamento():
