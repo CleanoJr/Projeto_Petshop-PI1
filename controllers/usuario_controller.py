@@ -74,7 +74,6 @@ def create():
 def dashboard():
     if 'usuario_id' not in session:
         return redirect(url_for('login'))
-    return render_template("/agendamento/agendamento.html")
 
 @app.route("/agendamento/novo_agendamento")
 def cad_agendamento():
