@@ -1,5 +1,5 @@
 from main import app
-from flask import request, render_template, redirect, url_for, session
+from flask import request, render_template, redirect, url_for, session, flash
 from models.usuario_model import *
 from models.conexao import *
 
@@ -23,12 +23,25 @@ def logar():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        
-        # Conectar ao banco de dados
-        conexao = DATABASE_URL
+               
+        db = SessionLocal()
+        usuario = db.query(Usuario).filter(Usuario.login == username, Usuario.senha == password).first()
     
-    return render_template("/agendamento/agendamento.html")
+        if usuario:
+            session['usuario_id'] = usuario.id
+            flash('Login realizado com sucesso!', 'success')
+            return redirect(url_for('dashboard'))
+        else:
+            flash('Usuário ou senha inválidos!', 'danger')
+        
+    return render_template("login.html")
 
+
+@app.route("/logout")
+def logout():
+    session.pop('usuario_id', None)
+    flash('Logout realizado com sucesso!', 'success')
+    return redirect(url_for('login'))
 
 @app.route("/usuario/inserir")
 def inserir():
@@ -56,6 +69,12 @@ def create():
         
         # Retorna para página de login
         return redirect(url_for('login'))
+
+@app.route("/dashboard")
+def dashboard():
+    if 'usuario_id' not in session:
+        return redirect(url_for('login'))
+    return render_template("dashboard.html")
 
 @app.route("/agendamento/novo_agendamento")
 def cad_agendamento():
