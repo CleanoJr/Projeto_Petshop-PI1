@@ -29,7 +29,6 @@ def logar():
     
         if usuario:
             session['usuario_id'] = usuario.id
-            flash('Login realizado com sucesso!', 'success')
             return redirect(url_for('dashboard'))
         else:
             flash('Usuário ou senha inválidos!', 'danger')
@@ -40,7 +39,6 @@ def logar():
 @app.route("/logout")
 def logout():
     session.pop('usuario_id', None)
-    flash('Logout realizado com sucesso!', 'success')
     return redirect(url_for('login'))
 
 @app.route("/usuario/inserir")
@@ -68,12 +66,19 @@ def create():
         db.commit()
         
         # Retorna para página de login
+        flash('Cadastrado com sucesso!', 'success')
         return redirect(url_for('login'))
 
 @app.route("/dashboard")
 def dashboard():
     if 'usuario_id' not in session:
         return redirect(url_for('login'))
+
+    db = SessionLocal()
+    usuario = db.query(Usuario).filter(Usuario.id == session['usuario_id']).first()
+    nome_usuario = usuario.nome if usuario else 'Usuário'
+
+    return render_template("/agendamento/agendamento.html", nome_usuario=nome_usuario)
 
 @app.route("/agendamento/novo_agendamento")
 def cad_agendamento():
