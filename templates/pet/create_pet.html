@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cadastro pet</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/ae360af17e.js" crossorigin="anonymous" defer></script>
+    <link rel="stylesheet" href="../../static/css/consult_form.css">
+    <link rel="shortcut icon" href="../../static/assets/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    {% include '/includes/menu_nav.html'%}
+    
+    <div class="main">
+        <h2>Cadastro pet</h2>
+    </div>
+
+    <div class="form-container">
+        <div class="card card-form">
+            <h4 class="text-left mb-4">Preencha os campos</h4>
+            
+            <form action="{{ url_for('create_pet') }}" method="POST">
+                <input type="hidden" name="client_id" value="{{ client_id }}">
+                <div class="mb-2">
+                    <label for="nome" class="form-label">Nome</label>
+                    <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite o nome do pet" required>
+                </div>
+                                   
+                <div class="row">
+                    <div class="col-md-6 mb-2">
+                        <label for="especie" class="form-label">Espécie</label>
+                        <input type="text" class="form-control" id="especie" name="raca" placeholder="Digite a espécie" required>
+                    </div>
+
+                    <div class="col-md-6 mb-2">
+                        <label for="raca" class="form-label">Raça</label>
+                        <input type="text" class="form-control" id="raca" name="raca" placeholder="Digite a raça" required>
+                    </div>                        
+                </div>
+
+                <div class="mb-2">
+                    <label for="nascimento" class="form-label">Nascimento</label>
+                    <input type="date" class="form-control" id="nascimento" required>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-success w-50">Salvar</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
