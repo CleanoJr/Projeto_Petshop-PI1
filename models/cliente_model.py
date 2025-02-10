@@ -6,7 +6,7 @@ from models.pet_model import Pet
 
 
 class Cliente(Base):
-    __tablename__ = "clientes"
+    __tablename__ = "cliente"
 
     client_id = Column("client_id", Integer, primary_key=True, autoincrement=True)
     name = Column("name", String(100), nullable=False)
@@ -17,7 +17,7 @@ class Cliente(Base):
     created_at = Column("created at", TIMESTAMP, server_default=func.current_timestamp())
     
      #Relacionamento 1:N
-    pets = relationship("Pet", back_populates="cliente")
+    cliente = relationship("cliente", back_populates="cliente")
 
     def __init__(self, name, cpf, email, phone, address):
         self.name = name

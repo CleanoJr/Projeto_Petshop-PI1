@@ -3,7 +3,7 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 from models.conexao import *
 
-class Pet(Base):
+class Pets(Base):
     __tablename__ = "pets"
 
     pet_id = Column(Integer, primary_key=True, autoincrement=True)
@@ -15,7 +15,7 @@ class Pet(Base):
     created_at = Column(TIMESTAMP, server_default=func.current_timestamp())
 
     # Relacionamento reverso com o Cliente
-    cliente = relationship("Cliente", back_populates="pets")
+    pets = relationship("Pets", back_populates="cliente")
 
     def __init__(self, name, species, breed, birth_date, client_id):
         self.name = name
