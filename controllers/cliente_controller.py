@@ -4,6 +4,14 @@ from models.cliente_model import *
 from models.conexao import *
 
 
+@app.route("/cliente", methods=['GET'])
+def listar_clientes():
+    SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+    db = SessionLocal()
+    clientes = db.query(Cliente).all()  # Busca todos os clientes no banco
+    db.close()
+    return render_template("/cliente/lista_cliente.html", clientes=clientes)
+
 @app.route("/cliente/inserir", methods=['GET'])
 def cliente():
     return render_template("/cliente/create_cliente.html")

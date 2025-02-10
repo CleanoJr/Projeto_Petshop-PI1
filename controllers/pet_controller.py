@@ -1,13 +1,29 @@
 from main import app
 from flask import request, render_template, redirect, url_for, session
-from models.pet_model import * 
+from models.pet_model import *
+from models.cliente_model import *
 from models.conexao import *
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-@app.route("/cliente/inserir", methods=['GET'])
+@app.route("/pets", methods=["GET"])
+def listar_pets():
+    db = SessionLocal()
+    
+    # Faz um JOIN entre Pet e Cliente para buscar o nome do dono
+    pets = db.query(Pet, Cliente.name).join(Cliente, Pet.client_id == Cliente.client_id).all()
+    
+    db.close()
+    
+    return render_template("/pet/lista_pet.html", pets=pets)
+
+@app.route("/pet", methods=['GET'])
+def pet_list():
+    return render_template("/pet/pet.html")
+
+@app.route("/cliente", methods=['GET'])
 def cliente_return():
-    return render_template("/cliente/create_cliente.html")
+    return render_template("/cliente/lista.cliente.html")
 
 # Rota para exibir o formulário de cadastro do pet
 @app.route("/pet/inserir", methods=['POST'])
