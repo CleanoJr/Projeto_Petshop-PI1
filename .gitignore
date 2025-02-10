@@ -23,3 +23,6 @@ Thumbs.db
 
 # Arquivos de configuração do ambiente
 .env
+
+# Arquivos de sessão
+flask_session/

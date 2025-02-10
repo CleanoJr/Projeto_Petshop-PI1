@@ -3,7 +3,6 @@ from flask_session import Session
 
 # Criação de uma instância do Flask
 app = Flask(__name__)
-app.config['SECRET_KEY'] = '123456'
 
 # Chave secreta para criptografar a sessão
 app.config['SECRET_KEY'] = 'minha_chave_secreta'
