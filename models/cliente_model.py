@@ -17,7 +17,7 @@ class Cliente(Base):
     created_at = Column("created at", TIMESTAMP, server_default=func.current_timestamp())
     
      #Relacionamento 1:N
-    cliente = relationship("cliente", back_populates="cliente")
+    pets = relationship("Pet", back_populates="cliente")
 
     def __init__(self, name, cpf, email, phone, address):
         self.name = name
