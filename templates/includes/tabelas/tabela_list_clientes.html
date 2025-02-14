@@ -1,0 +1,63 @@
+<div class="form-container">
+    <div class="card">
+        <h4 class="text-left mb-4">Campo de busca</h4>
+        <form>
+            <div class="row g-3">
+                <div class="col-12 col-md-6 col-lg-3">
+                    <label for="nome" class="form-label">Nome</label>
+                    <input type="text" class="form-control" id="nome" placeholder="Digite o nome do cliente">
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-3">
+                    <label for="nome" class="form-label">CPF</label>
+                    <input type="text" class="form-control" id="cpf" placeholder="Digite o cpf do cliente">
+                </div>
+                
+                <div class="col-12 col-md-3 col-lg-2 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary w-100">Pesquisar</button>
+                </div>
+                <div class="col-12 col-md-3 col-lg-2 d-flex align-items-end">
+                    <button type="submit" formaction="{{ url_for('cliente') }}" class="btn btn-success w-100">Novo Cliente</button>
+                </div>
+            </div>
+        </form>
+
+        <div class="card-body table-overflow">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">CPF</th>
+                        <th scope="col">Telefone</th>
+                        <th scope="col" colspan="2">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cliente in clientes %}
+                    <tr>
+                        <th scope="row">{{ loop.index }}</th>
+                        <td>{{ cliente.name }}</td>
+                        <td>{{ cliente.cpf }}</td>
+                        <td>{{ cliente.phone }}</td>
+                        <td class="d-flex align-items-center flex-nowrap">
+                            <a href="#">
+                                <button type="button" class="btn btn-info me-2">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </button>
+                            </a>
+                            <form action="#">
+                                <button type="submit" class="btn btn-danger">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </button>
+                            </form>
+                        </td>
+                        
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+</div>

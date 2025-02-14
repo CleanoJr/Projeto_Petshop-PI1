@@ -3,6 +3,8 @@ from flask import request, render_template, redirect, url_for, session
 from models.pet_model import *
 from models.cliente_model import *
 from models.conexao import *
+from models.usuario_model import Usuario
+
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
@@ -15,11 +17,21 @@ def listar_pets():
     
     db.close()
     
-    return render_template("/pet/lista_pet.html", pets=pets)
+    return render_template("/pet/pet.html", pets=pets)
 
 @app.route("/pet", methods=['GET'])
 def pet_list():
-    return render_template("/pet/pet.html")
+    
+    # Coleta do nome de usuaro da sessão	
+    if 'usuario_id' not in session:
+        return redirect(url_for('login'))
+
+    db = SessionLocal()
+    usuario = db.query(Usuario).filter(Usuario.id == session['usuario_id']).first()
+    nome_usuario = usuario.nome if usuario else 'Usuário'
+    
+    
+    return render_template("/pet/pet.html", nome_usuario=nome_usuario)
 
 @app.route("/cliente", methods=['GET'])
 def cliente_return():

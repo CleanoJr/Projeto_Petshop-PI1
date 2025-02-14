@@ -2,15 +2,24 @@ from main import app
 from flask import request, render_template, redirect, url_for, session
 from models.cliente_model import *
 from models.conexao import *
+from models.usuario_model import Usuario
 
 
 @app.route("/cliente", methods=['GET'])
 def listar_clientes():
     SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+    
+    # Coleta do nome de usuaro da sessão	
+    if 'usuario_id' not in session:
+        return redirect(url_for('login'))
+
     db = SessionLocal()
+    usuario = db.query(Usuario).filter(Usuario.id == session['usuario_id']).first()
+    nome_usuario = usuario.nome if usuario else 'Usuário'
+    
     clientes = db.query(Cliente).all()  # Busca todos os clientes no banco
     db.close()
-    return render_template("/cliente/lista_cliente.html", clientes=clientes)
+    return render_template("/cliente/lista_cliente.html", clientes=clientes, nome_usuario=nome_usuario)
 
 @app.route("/cliente/inserir", methods=['GET'])
 def cliente():
@@ -51,5 +60,3 @@ def create_client():
 
         # Redireciona para o cadastro do pet
         return redirect(url_for('pet'))
-''
-
