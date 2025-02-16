@@ -36,7 +36,7 @@
                         {{ nome_usuario }}
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                        <li><a class="dropdown-item" href="#">Perfil</a></li>
+                        <li><a class="dropdown-item" href="{{ url_for('perfil') }}">Perfil</a></li>
                         <li><a class="dropdown-item" href="#">Configurações</a></li>
                         <li><a class="dropdown-item" href="#">Ajuda</a></li>
                         <li><a class="dropdown-item" href="{{ url_for('logout') }}">Sair</a></li>

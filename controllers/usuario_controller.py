@@ -13,6 +13,7 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 def index():
     return render_template("index.html")
 
+
 @app.route("/login")
 def login():
     return render_template("login.html")
@@ -41,9 +42,11 @@ def logout():
     session.pop('usuario_id', None)
     return redirect(url_for('login'))
 
+
 @app.route("/usuario/inserir")
 def inserir():
     return render_template("usuario/create.html")
+
 
 @app.route("/usuario/inserir", methods=['POST'])
 def create():   
@@ -69,6 +72,7 @@ def create():
         flash('Cadastrado com sucesso!', 'success')
         return redirect(url_for('login'))
 
+
 @app.route("/dashboard")
 def dashboard():
     if 'usuario_id' not in session:
@@ -80,6 +84,19 @@ def dashboard():
 
     return render_template("/agendamento/agendamento.html", nome_usuario=nome_usuario)
 
+
 @app.route("/agendamento/novo_agendamento")
 def cad_agendamento():
     return render_template("/agendamento/create_agendamento.html")
+
+# Rota para perfil do usuário
+@app.route("/usuario/perfil")
+def perfil():
+    if 'usuario_id' not in session:
+        return redirect(url_for('login'))
+
+    db = SessionLocal()
+    usuario = db.query(Usuario).filter(Usuario.id == session['usuario_id']).first()
+    nome_usuario = usuario.nome if usuario else 'Usuário'
+
+    return render_template("/usuario/perfil_do_usuario.html", nome_usuario=nome_usuario)
