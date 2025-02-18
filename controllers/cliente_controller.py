@@ -1,5 +1,6 @@
 from main import app
-from flask import request, render_template, redirect, url_for, session
+from flask import  request, flash, render_template, redirect, url_for, session
+from sqlalchemy.exc import IntegrityError
 from models.cliente_model import *
 from models.conexao import *
 
@@ -24,32 +25,42 @@ def pet():
     return render_template("/pet/create_pet.html", client_id=cliente_id)
 
 @app.route("/cliente/inserir", methods=['POST'])
-def create_client():   
-    if request.method == 'POST':    
-        # Captura os dados do formulário      
-        nome = request.form['nome']
-        cpf = request.form['cpf']
-        email = request.form['email']   
-        endereco = request.form['endereco']   
-        telefone = request.form['telefone']
+def create_client():
+    try:
+        if request.method == 'POST':    
+            # Captura os dados do formulário      
+            nome = request.form['nome']
+            cpf = request.form['cpf']
+            email = request.form['email']   
+            endereco = request.form['endereco']   
+            telefone = request.form['telefone']
 
-        # Cria um novo cliente      
-        new_client = Cliente(name=nome, cpf=cpf, email=email, phone=telefone, address=endereco)
+            # Cria um novo cliente      
+            new_client = Cliente(name=nome, cpf=cpf, email=email, phone=telefone, address=endereco)
+            
+            # Cria a sessão com o banco de dados
+            SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+            db = SessionLocal()
+            db.add(new_client)
+            db.commit()
+            db.refresh(new_client)
+
+            # Salva o ID do cliente na sessão
+            session["cliente_id"] = new_client.client_id
+
+            db.close()
+            
+            # Redireciona para o cadastro do pet
+            return redirect(url_for('pet'))
         
-        # Cria a sessão com o banco de dados
-        SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-        db = SessionLocal()
-        db.add(new_client)
-        db.commit()
-        db.refresh(new_client)
+    except IntegrityError as e:
+        if "Duplicate entry" in str(e.orig):
+            flash("Erro: CPF já cadastrado!", "danger")
+        else:
+            flash("Erro ao cadastrar cliente. Tente novamente.", "danger")
+        return redirect(url_for("cliente"))
 
-        # Salva o ID do cliente na sessão
-        session["cliente_id"] = new_client.client_id
-
-        db.close()
-        
-
-        # Redireciona para o cadastro do pet
-        return redirect(url_for('pet'))
-''
+    except Exception as e:
+        flash("Ocorreu um erro inesperado: {}".format(str(e)), "danger")
+        return redirect(url_for("cliente"))
 

@@ -17,10 +17,6 @@ def listar_pets():
     
     return render_template("/pet/lista_pet.html", pets=pets)
 
-@app.route("/pet", methods=['GET'])
-def pet_list():
-    return render_template("/pet/pet.html")
-
 @app.route("/cliente", methods=['GET'])
 def cliente_return():
     return render_template("/cliente/lista.cliente.html")
@@ -28,6 +24,7 @@ def cliente_return():
 # Rota para exibir o formulário de cadastro do pet
 @app.route("/pet/inserir", methods=['POST'])
 def create_pet():
+    
     #recupera o ID do cliente da sessão
     client_id = session.get("cliente_id")
     if not client_id:
