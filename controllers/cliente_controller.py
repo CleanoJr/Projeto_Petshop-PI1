@@ -1,5 +1,5 @@
 from main import app
-from flask import  request, flash, render_template, redirect, url_for, session
+from flask import request, flash, render_template, redirect, url_for, session
 from sqlalchemy.exc import IntegrityError
 from models.cliente_model import *
 from models.conexao import *
@@ -21,7 +21,9 @@ def cliente():
 def pet():
     cliente_id = session.get("cliente_id")
     if not cliente_id:
-        return "Erro: Cliente não encontrado!", 400
+        flash("Cliente não encontrado!", "error")
+        return redirect(url_for('listar_clientes'))
+    
     return render_template("/pet/create_pet.html", client_id=cliente_id)
 
 @app.route("/cliente/inserir", methods=['POST'])
@@ -48,8 +50,6 @@ def create_client():
             # Salva o ID do cliente na sessão
             session["cliente_id"] = new_client.client_id
 
-            db.close()
-            
             # Redireciona para o cadastro do pet
             return redirect(url_for('pet'))
         
@@ -63,4 +63,28 @@ def create_client():
     except Exception as e:
         flash("Ocorreu um erro inesperado: {}".format(str(e)), "danger")
         return redirect(url_for("cliente"))
+    
+    finally:
+        db.close()
 
+@app.route('/cliente/delete/<int:id>', methods=['POST'])
+def delete_cliente(id):
+    SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+    db = SessionLocal()
+    try:
+        cliente = db.query(Cliente).get(id)
+        if not cliente:
+            return {"message": "Cliente não encontrado!"}, 404
+        
+        db.delete(cliente)
+        db.commit()
+
+        flash("Cliente deletado com sucesso!", "success")
+        return redirect(url_for('listar_clientes'))  # Redireciona para a página de listagem
+
+    except Exception as e:
+        db.rollback()
+        return f"Erro ao excluir o cliente: {e}", 500
+    
+    finally:
+        db.close()

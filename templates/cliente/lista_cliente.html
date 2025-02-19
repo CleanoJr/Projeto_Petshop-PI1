@@ -11,7 +11,10 @@
 </head>
 <body>
     {% include '/includes/menu_nav.html'%}
-    
+    {% include '/includes/mensagem_success.html'%}
+    {% include '/includes/mensagem_error.html'%}
+    {% include '/includes/modal_confirm.html'%}
+ 
     <div class="main">
         <h2>Clientes</h2>
     </div>
@@ -66,8 +69,8 @@
                                 </a>
                             </td>
                             <td>
-                                <form action="#">
-                                    <button type="submit" class="btn btn-danger">
+                                <form id="deleteForm" action="{{ url_for('delete_cliente', id=cliente.client_id) }}" method="POST" style="display:inline;">
+                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">
                                         <i class="fa-solid fa-trash-can"></i>
                                     </button>
                                 </form>
@@ -76,11 +79,14 @@
                         {% endfor %}
                     </tbody>
                 </table>
-            </div>
-            
+
+            </div>            
         </div>
     </div>
 
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../static/js/temporizador_mensagem.js"></script>
+    <script src="../../static/js/modal_confirm.js"></script>
 </body>
 </html>

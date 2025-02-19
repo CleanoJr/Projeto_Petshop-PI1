@@ -1,5 +1,5 @@
 from main import app
-from flask import request, render_template, redirect, url_for, session
+from flask import request, flash, render_template, redirect, url_for, session
 from models.pet_model import *
 from models.cliente_model import *
 from models.conexao import *
@@ -28,7 +28,8 @@ def create_pet():
     #recupera o ID do cliente da sessão
     client_id = session.get("cliente_id")
     if not client_id:
-        return "Erro: Cliente não encontrado!", 400
+        flash("Cliente não encontrado!", "error")
+        return redirect(url_for('cliente_return'))
     
     name = request.form.getlist("name[]")
     species = request.form.getlist("especie[]")
@@ -54,6 +55,7 @@ def create_pet():
     #Apaga o ID do cliente da sessão
     session.pop("cliente_id", None)
 
+    flash("Cliente e pets cadastrados com sucesso!", "success")
     return redirect(url_for('cliente_return'))
 
 
