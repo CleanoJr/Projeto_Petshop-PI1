@@ -62,7 +62,7 @@
                             <td>{{ cliente.cpf }}</td>
                             <td>{{ cliente.phone }}</td>
                             <td>
-                                <a href="#">
+                                <a href="{{ url_for('editar_cliente', id=cliente.client_id) }}">
                                     <button type="button" class="btn btn-info">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </button>
@@ -70,7 +70,11 @@
                             </td>
                             <td>
                                 <form id="deleteForm" action="{{ url_for('delete_cliente', id=cliente.client_id) }}" method="POST" style="display:inline;">
-                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">
+                                    <button type="button" class="btn btn-danger" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#confirmDeleteModal"
+                                        data-item-id="{{ cliente.client_id }}"
+                                        data-item-type="cliente">
                                         <i class="fa-solid fa-trash-can"></i>
                                     </button>
                                 </form>

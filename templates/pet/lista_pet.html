@@ -11,6 +11,9 @@
 </head>
 <body>
     {% include '/includes/menu_nav.html'%}
+    {% include '/includes/mensagem_success.html'%}
+    {% include '/includes/mensagem_error.html'%}
+    {% include '/includes/modal_confirm.html'%}
     
     <div class="main">
         <h2>Pets</h2>
@@ -68,15 +71,19 @@
                             <td>{{ dono }}</td>
                             <td>{{ pet.species }}</td>
                             <td>
-                                <a href="#">
+                                <a href="{{ url_for('editar_pet', id=pet.pet_id) }}">
                                     <button type="button" class="btn btn-info">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </button>
                                 </a>
                             </td>
                             <td>
-                                <form action="#">
-                                    <button type="submit" class="btn btn-danger">
+                                <form id="deleteForm" action="{{ url_for('delete_pet', id=pet.pet_id) }}" method="POST" style="display:inline;">
+                                    <button type="button" class="btn btn-danger" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#confirmDeleteModal"
+                                        data-item-id="{{ pet.pet_id }}"
+                                        data-item-type="pet">
                                         <i class="fa-solid fa-trash-can"></i>
                                     </button>
                                 </form>
@@ -91,5 +98,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../static/js/temporizador_mensagem.js"></script>
+    <script src="../../static/js/modal_confirm.js"></script>
 </body>
 </html>

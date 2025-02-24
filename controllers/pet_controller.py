@@ -58,4 +58,69 @@ def create_pet():
     flash("Cliente e pets cadastrados com sucesso!", "success")
     return redirect(url_for('cliente_return'))
 
+@app.route('/pet/editar/<int:id>', methods=['GET'])
+def editar_pet(id):
+    SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+    db = SessionLocal()
+    
+    pet = db.query(Pet).filter(Pet.pet_id == id).first()
+    clients = db.query(Cliente).all()  # Buscar todos os clientes
+    
+    if not pet:
+        flash("Pet não encontrado!", "danger")
+        return redirect(url_for('listar_pets'))
+
+    db.close()
+    return render_template('pet/editar_pet.html', pet=pet, clients=clients)
+
+@app.route('/pet/atualizar/<int:id>', methods=['POST'])
+def atualizar_pet(id):
+    SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+    db = SessionLocal()
+
+    pet = db.query(Pet).filter(Pet.pet_id == id).first()
+    if not pet:
+        flash("Pet não encontrado!", "danger")
+        return redirect(url_for('listar_pets'))
+
+    # Atualizar os dados do pet
+    pet.name = request.form['name']
+    pet.species = request.form['species']
+    pet.breed = request.form['breed']
+    pet.birth_date = request.form['birth_date']
+    pet.client_id = request.form['client_id']  # ou outro campo de cliente, se necessário.
+
+    try:
+        db.commit()
+        flash("Pet atualizado com sucesso!", "success")
+        return redirect(url_for('listar_pets'))
+    except Exception as e:
+        db.rollback()
+        flash(f"Erro ao atualizar o pet: {e}", "danger")
+        return redirect(url_for('listar_pets'))
+    finally:
+        db.close()
+
+@app.route('/pet/delete/<int:id>', methods=['POST'])
+def delete_pet(id):
+    SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+    db = SessionLocal()
+    try:
+        pet = db.query(Pet).filter_by(pet_id=id).first()
+        if not pet:
+            return {"message": "Pet não encontrado!"}, 404
+        
+        db.delete(pet)
+        db.commit()
+
+        flash("Pet deletado com sucesso!", "success")
+        return redirect(url_for('listar_pets'))  # Redireciona para a página de listagem
+
+    except Exception as e:
+        db.rollback()
+        return f"Erro ao excluir o pet: {e}", 500
+    
+    finally:
+        db.close()
+
 

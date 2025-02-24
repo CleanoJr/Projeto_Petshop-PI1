@@ -1,13 +1,13 @@
-// Guardar referência ao formulário
-const deleteForm = document.getElementById('deleteForm');
+document.addEventListener("DOMContentLoaded", function () {
+    var deleteModal = document.getElementById('confirmDeleteModal');
+    
+    deleteModal.addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget; // Botão que acionou o modal
+        var itemId = button.getAttribute('data-item-id'); // Obtém o ID
+        var itemType = button.getAttribute('data-item-type'); // Obtém o tipo (cliente ou pet)
+        var deleteForm = document.getElementById('deleteForm');
 
-// Quando o botão "Sim, excluir" for clicado
-document.getElementById('confirmDeleteBtn').addEventListener('click', function() {
-    // Envia o formulário
-    deleteForm.submit();
-});
-// Caso o usuário cancele ou feche o modal, não faça nada
-document.getElementById('deleteBtn').addEventListener('click', function() {
-    // Exibe o modal de confirmação
-    $('#confirmDeleteModal').modal('show');
+        // Define a URL correta com base no tipo do item
+        deleteForm.action = `/${itemType}/delete/${itemId}`;
+    });
 });

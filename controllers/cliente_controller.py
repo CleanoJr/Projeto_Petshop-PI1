@@ -67,6 +67,50 @@ def create_client():
     finally:
         db.close()
 
+@app.route('/cliente/editar/<int:id>', methods=['GET'])
+def editar_cliente(id):
+    SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+    db = SessionLocal()
+    try:
+        cliente = db.query(Cliente).filter_by(client_id=id).first()
+        if not cliente:
+            flash("Cliente não encontrado!", "danger")
+            return redirect(url_for('listar_clientes'))
+
+        return render_template('cliente/editar_cliente.html', cliente=cliente)
+
+    finally:
+        db.close()
+
+@app.route('/cliente/atualizar/<int:id>', methods=['POST'])
+def atualizar_cliente(id):
+    SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+    db = SessionLocal()
+    try:
+        cliente = db.query(Cliente).filter_by(client_id=id).first()
+        if not cliente:
+            flash("Cliente não encontrado!", "danger")
+            return redirect(url_for('listar_clientes'))
+
+        # Pegando os dados do formulário
+        cliente.name = request.form['nome']
+        cliente.cpf = request.form['cpf']
+        cliente.email = request.form['email']
+        cliente.address = request.form['endereco']
+        cliente.phone = request.form['telefone']
+
+        db.commit()
+        flash("Cliente atualizado com sucesso!", "success")
+        return redirect(url_for('listar_clientes'))
+
+    except Exception as e:
+        db.rollback()
+        flash(f"Erro ao atualizar cliente: {e}", "danger")
+        return redirect(url_for('listar_clientes'))
+
+    finally:
+        db.close()
+
 @app.route('/cliente/delete/<int:id>', methods=['POST'])
 def delete_cliente(id):
     SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
