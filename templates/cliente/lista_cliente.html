@@ -22,7 +22,7 @@
     <div class="form-container">
         <div class="card">
             <h4 class="text-left mb-4">Campo de busca</h4>
-            <form>
+            <form id="filter-form">
                 <div class="row g-3">
                     <div class="col-12 col-md-6 col-lg-3">
                         <label for="nome" class="form-label">Nome</label>
@@ -30,12 +30,12 @@
                     </div>
 
                     <div class="col-12 col-md-6 col-lg-3">
-                        <label for="nome" class="form-label">CPF</label>
-                        <input type="text" class="form-control" id="nome" placeholder="Digite o cpf do cliente">
+                        <label for="cpf" class="form-label">CPF</label>
+                        <input type="text" class="form-control" id="cpf" placeholder="Digite o cpf do cliente">
                     </div>
                     
                     <div class="col-12 col-md-3 col-lg-2 d-flex align-items-end">
-                        <button type="submit" class="btn btn-primary w-100">Pesquisar</button>
+                        <button type="button" class="btn btn-primary w-100" onclick="filterTable()">Pesquisar</button>
                     </div>
                     <div class="col-12 col-md-3 col-lg-2 d-flex align-items-end">
                         <button type="submit" formaction="{{ url_for('cliente') }}" class="btn btn-success w-100">Novo Cliente</button>
@@ -44,7 +44,7 @@
             </form>
 
             <div class="card-body table-overflow">
-                <table class="table">
+                <table class="table" id="clients-table">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
@@ -58,8 +58,8 @@
                         {% for cliente in clientes %}
                         <tr>
                             <th scope="row">{{ loop.index }}</th>
-                            <td>{{ cliente.name }}</td>
-                            <td>{{ cliente.cpf }}</td>
+                            <td class="client-name">{{ cliente.name }}</td>
+                            <td class="client-cpf">{{ cliente.cpf }}</td>
                             <td>{{ cliente.phone }}</td>
                             <td>
                                 <a href="{{ url_for('editar_cliente', id=cliente.client_id) }}">
@@ -83,7 +83,6 @@
                         {% endfor %}
                     </tbody>
                 </table>
-
             </div>            
         </div>
     </div>
@@ -92,5 +91,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../../static/js/temporizador_mensagem.js"></script>
     <script src="../../static/js/modal_confirm.js"></script>
+    <script src="../../static/js/filter_client.js"></script>
 </body>
 </html>

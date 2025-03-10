@@ -28,7 +28,7 @@
 
                 <div class="mb-2">
                     <label for="cpf" class="form-label">CPF</label>
-                    <input type="text" class="form-control" id="cpf" name="cpf" placeholder="Digite o cpf do cliente" required>
+                    <input type="text" class="form-control" id="cpf" name="cpf" placeholder="Digite o cpf do cliente" required maxlength="14" minlength="14" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" placeholder="000.000.000-00">
                 </div>
                                    
                 <div class="mb-2">
@@ -43,7 +43,7 @@
 
                 <div class="col-md-6 mb-3">
                     <label for="confirm-password" class="form-label">Telefone</label>
-                    <input type="tel" class="form-control" id="telefone" name="telefone" placeholder="(xx)x xxxx-xxxx" required>
+                    <input type="tel" class="form-control" id="telefone" name="telefone" placeholder="(xx)x xxxx-xxxx" required maxlength="15" minlength="15" pattern="\(\d{2}\) \d{5}-\d{4}" placeholder="(00) 00000-0000">
                 </div>
 
                 <div class="text-center">

@@ -1,50 +1,62 @@
-// Formatação dinâmica do CPF
-document.getElementById("cpf").addEventListener("input", function (e) {
-    let value = e.target.value.replace(/\D/g, ""); // Remove tudo que não for número
-    value = value.slice(0, 11); // Limita a 11 dígitos
+function formatCPF(value) {
+    value = value.replace(/\D/g, "").slice(0, 11);
 
-    let formattedValue = value;
-    if (value.length > 3 && value.length <= 6) {
-        formattedValue = value.slice(0, 3) + "." + value.slice(3);
-    } else if (value.length > 6 && value.length <= 9) {
-        formattedValue = value.slice(0, 3) + "." + value.slice(3, 6) + "." + value.slice(6);
-    } else if (value.length > 9) {
-        formattedValue =
-            value.slice(0, 3) +
-            "." +
-            value.slice(3, 6) +
-            "." +
-            value.slice(6, 9) +
-            "-" +
-            value.slice(9, 11);
-    }
-
-    e.target.value = formattedValue;
-});
-
-// Formatação dinâmica do telefone
-document.getElementById("telefone").addEventListener("input", function (e) {
-    let value = e.target.value.replace(/\D/g, ""); // Remove tudo que não for número
-    value = value.slice(0, 11); // Limita a 11 dígitos
-
-    let formattedValue = value;
-    if (value.length > 2 && value.length <= 6) {
-        formattedValue = `(${value.slice(0, 2)}) ${value.slice(2)}`;
+    if (value.length > 9) {
+        return value.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
     } else if (value.length > 6) {
-        formattedValue = `(${value.slice(0, 2)}) ${value.slice(2, 3)} ${value.slice(3, 7)}-${value.slice(7)}`;
+        return value.replace(/(\d{3})(\d{3})(\d{0,3})/, "$1.$2.$3");
+    } else if (value.length > 3) {
+        return value.replace(/(\d{3})(\d{0,3})/, "$1.$2");
     }
+    return value;
+}
 
-    e.target.value = formattedValue;
+function formatTelefone(value) {
+    value = value.replace(/\D/g, "").slice(0, 11);
+
+    if (value.length > 10) {
+        return value.replace(/(\d{2})(\d{5})(\d{4})/, "($1) $2-$3");
+    } else if (value.length > 6) {
+        return value.replace(/(\d{2})(\d{4})(\d{0,4})/, "($1) $2-$3");
+    } else if (value.length > 2) {
+        return value.replace(/(\d{2})(\d{0,5})/, "($1) $2");
+    }
+    return value;
+}
+
+document.getElementById("cpf").addEventListener("input", function (e) {
+    let cursorPos = e.target.selectionStart;
+    let oldLength = e.target.value.length;
+    e.target.value = formatCPF(e.target.value);
+    let newLength = e.target.value.length;
+    e.target.setSelectionRange(cursorPos + (newLength - oldLength), cursorPos + (newLength - oldLength));
 });
 
-// Remover formatação antes de enviar
+document.getElementById("telefone").addEventListener("input", function (e) {
+    let cursorPos = e.target.selectionStart;
+    let oldLength = e.target.value.length;
+    e.target.value = formatTelefone(e.target.value);
+    let newLength = e.target.value.length;
+    e.target.setSelectionRange(cursorPos + (newLength - oldLength), cursorPos + (newLength - oldLength));
+});
+
 document.getElementById("form").addEventListener("submit", function (e) {
-    const cpfInput = document.getElementById("cpf");
-    const telefoneInput = document.getElementById("telefone");
+    let cpf = document.getElementById("cpf");
+    let telefone = document.getElementById("telefone");
 
-    // Remove a formatação do CPF (deixa apenas números)
-    cpfInput.value = cpfInput.value.replace(/\D/g, "");
+    // Remove os caracteres especiais antes de enviar
+    cpf.value = cpf.value.replace(/\D/g, "");
+    telefone.value = telefone.value.replace(/\D/g, "");
 
-    // Remove a formatação do telefone (deixa apenas números)
-    telefoneInput.value = telefoneInput.value.replace(/\D/g, "");
+    if (cpf.value.length !== 11) {
+        alert("O CPF deve ter exatamente 11 dígitos.");
+        cpf.focus();
+        e.preventDefault();
+    }
+
+    if (telefone.value.length !== 11) {
+        alert("O telefone deve ter exatamente 11 dígitos.");
+        telefone.focus();
+        e.preventDefault();
+    }
 });
