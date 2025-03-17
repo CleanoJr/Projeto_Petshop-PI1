@@ -1,3 +1,4 @@
+import uuid
 from sqlalchemy import Text, TIMESTAMP
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
@@ -8,7 +9,7 @@ from models.pet_model import Pet
 class Cliente(Base):
     __tablename__ = "cliente"
 
-    client_id = Column("client_id", Integer, primary_key=True, autoincrement=True)
+    client_id = Column("client_id", String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
     name = Column("name", String(100), nullable=False)
     cpf = Column("cpf", String(14), unique=True, nullable=False)
     email = Column("email", String(100), nullable=False)

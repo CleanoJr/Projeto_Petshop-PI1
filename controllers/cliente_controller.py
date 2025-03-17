@@ -45,7 +45,6 @@ def create_client():
             db = SessionLocal()
             db.add(new_client)
             db.commit()
-            db.refresh(new_client)
 
             # Salva o ID do cliente na sessão
             session["cliente_id"] = new_client.client_id
@@ -67,7 +66,7 @@ def create_client():
     finally:
         db.close()
 
-@app.route('/cliente/editar/<int:id>', methods=['GET'])
+@app.route('/cliente/editar/<id>', methods=['GET'])
 def editar_cliente(id):
     SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
     db = SessionLocal()
@@ -82,7 +81,7 @@ def editar_cliente(id):
     finally:
         db.close()
 
-@app.route('/cliente/atualizar/<int:id>', methods=['POST'])
+@app.route('/cliente/atualizar/<id>', methods=['POST'])
 def atualizar_cliente(id):
     SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
     db = SessionLocal()
@@ -111,7 +110,7 @@ def atualizar_cliente(id):
     finally:
         db.close()
 
-@app.route('/cliente/delete/<int:id>', methods=['POST'])
+@app.route('/cliente/delete/<id>', methods=['POST'])
 def delete_cliente(id):
     SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
     db = SessionLocal()

@@ -49,7 +49,6 @@ def create_pet():
         db.add(new_pet)
            
     db.commit()
-    db.refresh(new_pet)
     db.close()
 
     #Apaga o ID do cliente da sessão
@@ -58,7 +57,7 @@ def create_pet():
     flash("Cliente e pets cadastrados com sucesso!", "success")
     return redirect(url_for('cliente_return'))
 
-@app.route('/pet/editar/<int:id>', methods=['GET'])
+@app.route('/pet/editar/<id>', methods=['GET'])
 def editar_pet(id):
     SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
     db = SessionLocal()
@@ -73,7 +72,7 @@ def editar_pet(id):
     db.close()
     return render_template('pet/editar_pet.html', pet=pet, clients=clients)
 
-@app.route('/pet/atualizar/<int:id>', methods=['POST'])
+@app.route('/pet/atualizar/<id>', methods=['POST'])
 def atualizar_pet(id):
     SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
     db = SessionLocal()
@@ -101,7 +100,7 @@ def atualizar_pet(id):
     finally:
         db.close()
 
-@app.route('/pet/delete/<int:id>', methods=['POST'])
+@app.route('/pet/delete/<id>', methods=['POST'])
 def delete_pet(id):
     SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
     db = SessionLocal()
