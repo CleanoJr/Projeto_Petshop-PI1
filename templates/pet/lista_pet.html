@@ -73,7 +73,7 @@
                             <td class="pet-species">{{ pet.species }}</td>
                             <td>
                                 <a href="{{ url_for('editar_pet', id=pet.pet_id) }}">
-                                    <button type="button" class="btn btn-info">
+                                    <button type="button" class="btn btn-info" title="Editar Pet">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </button>
                                 </a>
@@ -84,7 +84,7 @@
                                         data-bs-toggle="modal" 
                                         data-bs-target="#confirmDeleteModal"
                                         data-item-id="{{ pet.pet_id }}"
-                                        data-item-type="pet">
+                                        data-item-type="pet" title="Apagar Pet">
                                         <i class="fa-solid fa-trash-can"></i>
                                     </button>
                                 </form>

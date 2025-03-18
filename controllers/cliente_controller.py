@@ -18,8 +18,10 @@ def cliente():
     return render_template("/cliente/create_cliente.html")
 
 @app.route("/pet/inserir", methods=['GET'])
-def pet():
-    cliente_id = session.get("cliente_id")
+@app.route("/pet/inserir/<id>", methods=['GET'])
+def pet(id=None):
+    # Recupera o cliente_id da URL (se fornecido) ou da sessão
+    cliente_id = id or session.get("cliente_id")
     if not cliente_id:
         flash("Cliente não encontrado!", "error")
         return redirect(url_for('listar_clientes'))

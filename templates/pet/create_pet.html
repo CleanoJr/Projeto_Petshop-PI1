@@ -20,8 +20,7 @@
         <div class="card card-form">
             <h4 class="text-left mb-4">Preencha os campos</h4>
             
-            <form action="{{ url_for('create_pet') }}" method="POST">
-                <input type="hidden" name="client_id" value="{{ client_id }}">
+            <form action="{{ url_for('create_pet', id=client_id) }}" method="POST">
                 
                 <div id="petForms">
                     <!-- Primeiro formulário do pet -->

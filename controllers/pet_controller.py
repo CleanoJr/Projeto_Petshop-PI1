@@ -17,17 +17,16 @@ def listar_pets():
     
     return render_template("/pet/lista_pet.html", pets=pets)
 
-@app.route("/cliente", methods=['GET'])
+@app.route("/cliente", methods=['POST'])
 def cliente_return():
     return render_template("/cliente/lista.cliente.html")
 
-# Rota para exibir o formulário de cadastro do pet
 @app.route("/pet/inserir", methods=['POST'])
-def create_pet():
-    
-    #recupera o ID do cliente da sessão
-    client_id = session.get("cliente_id")
-    if not client_id:
+@app.route("/pet/inserir/<id>", methods=['POST'])
+def create_pet(id=None):
+    # Recupera o cliente_id da URL (se fornecido) ou da sessão
+    cliente_id = id or session.get("cliente_id")
+    if not cliente_id:
         flash("Cliente não encontrado!", "error")
         return redirect(url_for('cliente_return'))
     
@@ -44,7 +43,7 @@ def create_pet():
             species=species[i],
             breed=breed[i],
             birth_date=birth_date[i], 
-            client_id=client_id
+            client_id=cliente_id
             )
         db.add(new_pet)
            
