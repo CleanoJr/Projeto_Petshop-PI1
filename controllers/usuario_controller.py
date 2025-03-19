@@ -16,7 +16,7 @@ def index():
 
 @app.route("/login")
 def login():
-    return render_template("login.html")
+    return render_template("usuario/login.html")
 
 
 @app.route('/logar', methods=['GET', 'POST'])
@@ -45,7 +45,7 @@ def logout():
 
 @app.route("/usuario/inserir")
 def inserir():
-    return render_template("usuario/create.html")
+    return render_template("usuario/create_usuario.html")
 
 
 @app.route("/usuario/inserir", methods=['POST'])
@@ -81,6 +81,7 @@ def dashboard():
     db = SessionLocal()
     usuario = db.query(Usuario).filter(Usuario.id == session['usuario_id']).first()
     nome_usuario = usuario.nome if usuario else 'Usuário'
+    db.close()
 
     return render_template("/agendamento/agendamento.html", nome_usuario=nome_usuario)
 

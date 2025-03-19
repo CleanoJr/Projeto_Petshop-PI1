@@ -3,6 +3,7 @@ from flask import request, flash, render_template, redirect, url_for, session
 from sqlalchemy.exc import IntegrityError
 from models.cliente_model import *
 from models.conexao import *
+from models.usuario_model import Usuario
 
 
 @app.route("/cliente", methods=['GET'])
@@ -10,8 +11,10 @@ def listar_clientes():
     SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
     db = SessionLocal()
     clientes = db.query(Cliente).all()  # Busca todos os clientes no banco
+    usuario = db.query(Usuario).filter(Usuario.id == session['usuario_id']).first()
+    nome_usuario = usuario.nome if usuario else 'Usuário'
     db.close()
-    return render_template("/cliente/lista_cliente.html", clientes=clientes)
+    return render_template("/cliente/lista_cliente.html", clientes=clientes, nome_usuario=nome_usuario)
 
 @app.route("/cliente/inserir", methods=['GET'])
 def cliente():
