@@ -26,16 +26,22 @@
                         <label for="produto" class="form-label">Nome</label>
                         <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome do produto" required>
                     </div>
-
-                <div class="row">
-                    <div class="col-md-6 mb-2">
-                        <label for="usuario" class="form-label">Tipo de Produto</label>
-                        <input type="text" class="form-control" id="tipo" name="tipo" placeholder="Digite o tipo de produto" required>
-                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-2">
+                            <label for="cargo" class="form-label">Tipo de Produto</label>
+                            <select class="form-select" id="tipo" name="tipo" required>
+                                <option value="Coleiras">Coleiras</option>
+                                <option value="Ração">Ração</option>
+                                <option value="Mordedores">Mordedores</option>
+                                <option value="Petiscos">Petiscos</option>
+                                <option value="Bolas">Bolas</option>
+                                <option value="Outros">Outros</option>
+                        </select>
+                        </div>
 
                     <div class="col-md-6 mb-2">
                         <label for="telefone" class="form-label">Preço</label>
-                        <input type="tel" class="form-control" id="preco" name="preco" placeholder="Preço do produto" required>
+                        <input type="tel" class="form-control" id="preco" name="preco" placeholder="R$ 0,00" required>
                     </div>                        
                 </div>
 
