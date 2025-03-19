@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_session import Session
+from controllers.prontuario_controller import prontuario_bp
 
 # Criação de uma instância do Flask
 app = Flask(__name__)
@@ -11,6 +12,9 @@ app.config['SECRET_KEY'] = 'minha_chave_secreta'
 app.config['SESSION_TYPE'] = 'filesystem'
 
 Session(app)
+
+# Registro do blueprint
+app.register_blueprint(prontuario_bp, url_prefix='/prontuarios')
 
 from controllers.usuario_controller import *
 from controllers.cliente_controller import *
