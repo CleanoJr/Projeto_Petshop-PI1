@@ -1,0 +1,20 @@
+/* Cabeçalho */
+header {
+    background-color: var(--bs-white);
+    padding: 20px;
+    text-align: center;
+}
+
+/* Rodapé */
+footer {
+    background-color: var(--bs-secondary);
+    padding: 10px;
+    text-align: center;
+}
+
+/* Containers */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}

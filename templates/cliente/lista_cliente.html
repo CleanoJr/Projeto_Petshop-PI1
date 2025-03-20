@@ -6,7 +6,7 @@
     <title>Lista - Clientes</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="../../static/css/consult_form.css">
+    <link rel="stylesheet" href="../../static/css/index.css">
     <link rel="shortcut icon" href="../../static/assets/favicon.ico" type="image/x-icon">
 </head>
 <body>
@@ -21,7 +21,7 @@
 
     <div class="form-container">
         <div class="card">
-            <h4 class="text-left mb-4">Campo de busca</h4>
+            
             <form id="filter-form">
                 <div class="row g-3">
                     <div class="col-12 col-md-6 col-lg-3">
@@ -51,7 +51,7 @@
                             <th scope="col">Nome</th>
                             <th scope="col">CPF</th>
                             <th scope="col">Telefone</th>
-                            <th scope="col" colspan="2">Ações</th>
+                            <th scope="col">Ações</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -62,14 +62,13 @@
                             <td class="client-cpf">{{ cliente.cpf }}</td>
                             <td>{{ cliente.phone }}</td>
                             </td>
-                            <td>
+                            <td class="icons">
                                 <a href="{{ url_for('pet', id=cliente.client_id) }}">
                                     <button type="button" class="btn btn-success" title="Cadastrar Pet">
                                         <i class="fa-solid fa-paw"></i>
                                     </button>
                                 </a>
-                            </td>
-                            <td>
+                            
                                 <a href="{{ url_for('editar_cliente', id=cliente.client_id) }}">
                                     <button type="button" class="btn btn-info" title="Editar Cliente">
                                         <i class="fa-solid fa-pen-to-square"></i>

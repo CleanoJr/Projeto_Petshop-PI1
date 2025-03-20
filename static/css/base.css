@@ -1,0 +1,26 @@
+/* Reset de CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Importação da fonte Comfortaa */
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap');
+
+/* Estilos globais */
+body, html {
+    height: 100%;
+    font-family: 'Comfortaa', sans-serif;
+    font-weight: 300;
+    background-color: #fffefd;
+    color: #343a40;
+}
+
+/* Variáveis de cores */
+:root {
+    --bs-primary: #D2811E;
+    --bs-secondary: #ECB879;
+    --bs-danger: #DC3545;
+    --bs-bg: #FBEEE0;
+}

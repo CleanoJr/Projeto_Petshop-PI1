@@ -1,0 +1,99 @@
+/* Botões */
+.btn {
+    display: inline-block;
+    padding: 10px 10px;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.btn-primary {
+    background-color: var(--bs-primary);
+    color: #fff;
+}
+
+.btn-secondary {
+    background-color: var(--bs-secondary);
+    color: #fff;
+}
+
+/* Cards */
+.card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Navbar */
+.navbar {
+    background-color: #EFC48F;
+}
+
+.navbar h2 {
+    margin: 0;
+}
+
+.nav-link {
+    transition: background-color 0.3s, color 0.3s;
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+.nav-link:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    color: #333;
+}
+.main {
+    text-align: center;
+    margin-top: 20px;
+    padding: 20px;
+}
+.navbar-brand {
+    display: flex;
+    gap: 5px;
+    color: #43290A;
+}
+
+/* Filtro de Pesquisa */
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 20px;
+}
+
+.card {
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
+}
+
+.card-form{
+    max-width: 410px;
+}
+
+.table td, .table th{
+    vertical-align: middle;
+    text-align: center;
+}
+.table td a button {
+    margin: 0;
+}
+
+.table .icons {
+    padding: 5px 0;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.table-overflow {
+overflow-x: scroll;
+}
+
+@media (min-width: 992px) {
+    .navbar-nav {
+        gap: 40px;
+    }
+}

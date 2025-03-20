@@ -48,7 +48,7 @@ class PDF(FPDF):
         h_logo = 30
         
         # Logo
-        self.image('static/assets/logo.jpg', 10, 8, 0, h_logo)
+        self.image('static/assets/logo.png', 10, 8, 0, h_logo)
         
         # Titulo
         self.set_font('Helvetica', 'B', 16)

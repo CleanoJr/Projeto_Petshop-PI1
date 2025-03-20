@@ -19,7 +19,7 @@ body {
     text-align: left;
 }
 .card-body h3 {
-    color: #6F028A;
+    color: #43290A;
 }
 .login-logo {
     /* width: 100%; */
@@ -32,10 +32,16 @@ body {
 .btn-small {
     padding: 8px 20px;
     font-size: 14px;
+    --bs-btn-bg: #D2811E;
 }
 .btn-small:hover {
-    background-color: #6F028A;
+    background-color: #B7701A;
 }
 .spacing {
     margin-bottom: 30px;
+}
+
+.text-center a {
+    color: #D2811E;
+    text-decoration: none;
 }
