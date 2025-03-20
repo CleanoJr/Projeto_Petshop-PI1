@@ -10,10 +10,10 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mx-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Agenda</a>
+                    <a class="nav-link" href="{{ url_for('dashboard') }}">Agenda</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="clientePetDropdown" role="button" data-bs-toggle="dropdown">
+                    <a class="nav-link dropdown-toggle" href="" id="clientePetDropdown" role="button" data-bs-toggle="dropdown">
                         Cliente/Pet
                     </a>
                     <ul class="dropdown-menu">
@@ -22,7 +22,7 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Serviços</a>
+                    <a class="nav-link" href="">Serviços</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('prontuario.form_prontuario') }}">Veterinário</a>

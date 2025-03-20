@@ -18,10 +18,37 @@ class PDF(FPDF):
         self.conteudo = ""
         self.prm_color = "#FFD300"
 
+    def add_watermark(self):
+        # Caminho para a logo
+        logo_path = 'static/assets/logo_watermark.png'
+        
+        # Dimensões da página
+        page_width = self.w
+        page_height = self.h
+        
+        # Tamanho da marca d'água (ajuste conforme necessário)
+        watermark_width = 100  # Largura da imagem
+        watermark_height = 100  # Altura da imagem
+        
+        # Calcula a posição central
+        x_position = (page_width - watermark_width) / 2
+        y_position = (page_height - watermark_height) / 2
+        
+        # Adiciona a imagem ao centro da página
+        self.image(logo_path, x=x_position, y=y_position, w=watermark_width, h=watermark_height)
+
     def header(self):       
         
+        self.add_watermark()
+        
+        # Váriaveis de altura e largura
+        h_label = 10
+        h_conteudo = h_label - 1
+        h_linhas = h_label - 3
+        h_logo = 30
+        
         # Logo
-        self.image('static/assets/logo.jpg', 10, 8, 33)
+        self.image('static/assets/logo.jpg', 10, 8, 0, h_logo)
         
         # Titulo
         self.set_font('Helvetica', 'B', 16)
@@ -29,23 +56,19 @@ class PDF(FPDF):
         self.cell(80)        
         title = "Ficha de Prontuário"
         width = self.get_string_width(title) + 6
+        self.set_y(h_logo / 2)
         self.set_x((self.w - width) / 2)
-        self.cell(width, 10, title, border=0, align='C', new_x=XPos.LMARGIN, new_y=YPos.NEXT)
-        self.cell(0, 3, '', border='B')
-        self.ln(6)
-                
-        
-        # Váriaveis de altura e largura
-        h_titulos = 10
-        h_conteudo = h_titulos - 1
-        h_linhas = h_titulos - 3
+        self.cell(width, 10, title, border=0, align='C', new_x=XPos.LMARGIN)
+        self.set_y(h_logo + 10)
+        self.cell(0, 1, '', border='B')
+        self.ln(2)
         
         
-        def add_titulo(texto: str):
+        def add_label(texto: str):
             self.set_font('', 'B', 14)
             self.set_text_color(self.prm_color)
             width = self.get_string_width(texto)
-            return self.cell(width, h_titulos, f"{texto}: ", new_x=XPos.END)
+            return self.cell(width, h_label, f"{texto}: ", new_x=XPos.END)
         
         def add_texto(texto: str, complemento: str = ''):
             self.set_font('', '', 12)
@@ -63,41 +86,41 @@ class PDF(FPDF):
         # Adiciona informações adicionais no cabeçalho
         
         # Nome do Paciente
-        add_titulo('Paciente')
+        add_label('Paciente')
         add_texto(self.paciente)
         self.cell(85 - self.get_string_width("Paciente :"), h_linhas, '', border='B', new_x=XPos.RIGHT)
         self.cell(5)
         
         # Espécie
-        add_titulo('Espécie')
+        add_label('Espécie')
         add_texto(self.especie)
         self.cell(40 - self.get_string_width("Especie :"), h_linhas, '', border='B', new_x=XPos.RIGHT)
         self.cell(5)
         
         # Sexo
-        add_titulo('Sexo')
+        add_label('Sexo')
         add_texto(self.sexo)
         self.cell(30 - self.get_string_width("Sexo :"), h_linhas, '', border='B', new_x=XPos.LMARGIN, new_y=YPos.NEXT)
         
         # Raça
-        add_titulo('Raça')
+        add_label('Raça')
         add_texto(self.raca)
         self.cell(87 - self.get_string_width("Raça :"), h_linhas, '', border='B', new_x=XPos.RIGHT)
         self.cell(5)
         
         # Peso
-        add_titulo('Peso')
+        add_label('Peso')
         add_texto(self.peso, "kg")
         self.cell(15, h_linhas, '', border='B', new_x=XPos.RIGHT)
         self.cell(5)
         
         # Idade
-        add_titulo('Idade')
+        add_label('Idade')
         add_texto(calcular_idade(), "anos")
         self.cell(15, h_linhas, '', border='B', new_x=XPos.LMARGIN, new_y=YPos.NEXT)
         
         # Tutor
-        add_titulo('Tutor')
+        add_label('Tutor')
         add_texto(self.tutor)
         self.cell(0, h_linhas, '', border='B', new_x=XPos.LMARGIN, new_y=YPos.NEXT)
         
@@ -109,7 +132,7 @@ class PDF(FPDF):
         self.set_font('', '', 14)
         
         self.set_x(30)
-        self.multi_cell(self.w - 25, 10,  self.conteudo, padding=(2, 3, 3), center=True, align='')
+        self.multi_cell(self.w - 35, 10,  self.conteudo, padding=(2, 3, 3), center=True, align='')
         self.ln(10)                    
 
     def footer(self):

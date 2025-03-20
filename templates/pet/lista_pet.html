@@ -61,7 +61,7 @@
                             <th scope="col">Nome</th>
                             <th scope="col">Dono</th>
                             <th scope="col">Espécie</th>
-                            <th scope="col" colspan="2">Ações</th>
+                            <th scope="col">Ações</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -77,8 +77,6 @@
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </button>
                                 </a>
-                            </td>
-                            <td>
                                 <form id="deleteForm" action="{{ url_for('delete_pet', id=pet.pet_id) }}" method="POST" style="display:inline;">
                                     <button type="button" class="btn btn-danger" 
                                         data-bs-toggle="modal" 
