@@ -16,7 +16,7 @@ class PDF(FPDF):
         self.nascimento = ""
         self.data_consulta = ""
         self.conteudo = ""
-        self.prm_color = "#FFD300"
+        self.prm_color = "#D2811E"
 
     def add_watermark(self):
         # Caminho para a logo
@@ -48,24 +48,24 @@ class PDF(FPDF):
         h_logo = 30
         
         # Logo
-        self.image('static/assets/logo.png', 10, 8, 0, h_logo)
+        self.image('static/assets/logo_horizontal.png', 10, 8, 0, h_logo)
         
         # Titulo
         self.set_font('Helvetica', 'B', 16)
-        self.set_text_color(self.prm_color)
-        self.cell(80)        
-        title = "Ficha de Prontuário"
-        width = self.get_string_width(title) + 6
-        self.set_y(h_logo / 2)
-        self.set_x((self.w - width) / 2)
-        self.cell(width, 10, title, border=0, align='C', new_x=XPos.LMARGIN)
+        # self.set_text_color(self.prm_color)
+        # self.cell(80)        
+        # title = "Ficha de Prontuário"
+        # width = self.get_string_width(title) + 6
+        # self.set_y(h_logo / 2)
+        # self.set_x((self.w - width) / 2)
+        # self.cell(width, 10, title, border=0, align='C', new_x=XPos.LMARGIN)
         self.set_y(h_logo + 10)
         self.cell(0, 1, '', border='B')
         self.ln(2)
         
         
         def add_label(texto: str):
-            self.set_font('', 'B', 14)
+            self.set_font('Helvetica', 'B', 14)
             self.set_text_color(self.prm_color)
             width = self.get_string_width(texto)
             return self.cell(width, h_label, f"{texto}: ", new_x=XPos.END)
