@@ -53,7 +53,7 @@ def create_pet(id=None):
     #Apaga o ID do cliente da sessão
     session.pop("cliente_id", None)
 
-    flash("Cliente e pets cadastrados com sucesso!", "success")
+    flash("Cadastro com sucesso!", "success")
     return redirect(url_for('cliente_return'))
 
 @app.route('/pet/editar/<id>', methods=['GET'])

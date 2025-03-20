@@ -38,7 +38,7 @@
                         <button type="button" class="btn btn-primary w-100" onclick="filterTable()">Pesquisar</button>
                     </div>
                     <div class="col-12 col-md-3 col-lg-2 d-flex align-items-end">
-                        <button type="submit" formaction="{{ url_for('cliente') }}" class="btn btn-success w-100">Novo Funcionario</button>
+                        <button type="submit" formaction="{{ url_for('employee') }}" class="btn btn-success w-100">Novo Funcionario</button>
                     </div>
                 </div>
             </form>
@@ -49,40 +49,33 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Nome</th>
-                            <th scope="col">CPF</th>
+                            <th scope="col">Cargo</th>
                             <th scope="col">Telefone</th>
                             <th scope="col" colspan="2">Ações</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for cliente in clientes %}
+                        {% for funcionario in funcionarios %}
                         <tr>
                             <th scope="row">{{ loop.index }}</th>
-                            <td class="client-name">{{ cliente.name }}</td>
-                            <td class="client-cpf">{{ cliente.cpf }}</td>
-                            <td>{{ cliente.phone }}</td>
+                            <td class="employee-name">{{ funcionario.name }}</td>
+                            <td class="employee-role">{{ funcionario.role }}</td>
+                            <td>{{ funcionario.phone }}</td>
                             </td>
                             <td>
-                                <a href="{{ url_for('pet', id=cliente.client_id) }}">
-                                    <button type="button" class="btn btn-success" title="Cadastrar Pet">
-                                        <i class="fa-solid fa-paw"></i>
-                                    </button>
-                                </a>
-                            </td>
-                            <td>
-                                <a href="{{ url_for('editar_cliente', id=cliente.client_id) }}">
-                                    <button type="button" class="btn btn-info" title="Editar Cliente">
+                                <a href="{{ url_for('edit_employee', id=funcionario.employee_id) }}">
+                                    <button type="button" class="btn btn-info" title="Editar Funcionário">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </button>
                                 </a>
                             </td>
                             <td>
-                                <form id="deleteForm" action="{{ url_for('delete_cliente', id=cliente.client_id) }}" method="POST" style="display:inline;">
+                                <form id="deleteForm" action="{{ url_for('delete_employee', id=funcionario.employee_id) }}" method="POST" style="display:inline;">
                                     <button type="button" class="btn btn-danger" 
                                         data-bs-toggle="modal" 
                                         data-bs-target="#confirmDeleteModal"
-                                        data-item-id="{{ cliente.client_id }}"
-                                        data-item-type="cliente" title="Deletar Cliente">
+                                        data-item-id="{{ funcionario.employee_id }}"
+                                        data-item-type="funcionarios" title="Deletar Funcionário">
                                         <i class="fa-solid fa-trash-can"></i>
                                     </button>
                                 </form>

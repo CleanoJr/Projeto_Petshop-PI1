@@ -20,6 +20,7 @@ from controllers.usuario_controller import *
 from controllers.cliente_controller import *
 from controllers.pet_controller import *
 from controllers.funcionario_controller import *
+from controllers.servicos_controller import *
 
 #Inicia o servidor de desenvolvimento.
 if __name__ == '__main__':
