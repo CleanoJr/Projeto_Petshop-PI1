@@ -20,7 +20,7 @@
         <div class="card card-form">
             <h4 class="text-left mb-4">Atualize os dados do cliente</h4>
             
-            <form id="form" method="POST" action="{{ url_for('atualizar_cliente', id=cliente.client_id) }}">
+            <form id="form" method="POST" action="{{ url_for('cliente_bp.atualizar_cliente', id=cliente.client_id) }}">
                 <input type="hidden" name="id" value="{{ cliente.client_id }}">
 
                 <div class="mb-2">

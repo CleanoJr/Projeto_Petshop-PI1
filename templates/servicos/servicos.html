@@ -1,114 +1,102 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PetShop</title>
-<link rel="stylesheet" href="../../static/css/index.css">
-<link rel="shortcut icon" href="../../static/assets/favicon.ico" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lista - Serviços</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../../static/css/index.css">
+    <link rel="shortcut icon" href="../../static/assets/favicon.ico" type="image/x-icon">
+    <style>
+        .card {
+            height: 100%; /* Cards com altura uniforme */
+        }
+        .card-title {
+            font-weight: bold; /* Apenas o nome em negrito */
+        }
+        .btn-group-right {
+            gap: 0.5rem; /* Espaço entre os botões */
+        }
+    </style>
 </head>
 <body>
+    {% include '/includes/menu_nav.html' %}
+    {% include '/includes/mensagem_success.html' %}
+    {% include '/includes/mensagem_error.html' %}
+    {% include '/includes/modal_confirm.html' %}
 
-<nav>
-    <ul>
-        <div class="logo">
-        <li><a href="#home"><img src="../../static/assets/logo.png" width="60" height="50">PetShop</a></li>
-        </div>
-        <li><a href="../../templates/agendamento/agendamento.html">Agenda</a></li>
-        <li><a href="../../templates/cliente/lista_cliente.html">Cliente/pet</a></li>
-        <li><a href="../../templates/servicos/servicos.html">Serviços</a></li>
-        <li><a href="../../templates/produtos/produtos.html">Produtos</a></li>
-        <li><a href="../../templates/funcionarios/lista_funcionario.html/">Funcionários</a></li>
-        <li><a href="../../templates/usuario/perfil_do_usuario.html">Usuário</a></li>
-    </ul>
-</nav>
-<div id="home">
-    <h1>Serviços</h1>
-</div>
-<div class="form-container">
-    <div class="card">
-        
-        <form>
-            <div class="row g-3">
-                <div class="col-12 col-md-6 col-lg-3">
-                    <label for="nome" class="form-label">Nome</label>
-                    <input type="text" class="form-control" id="nome_pet" placeholder="Digite o nome do pet">
-                </div>
+    <div class="main">
+        <h2>Serviços</h2>
+    </div>
 
-                <div class="col-12 col-md-6 col-lg-3">
-                    <label for="nome" class="form-label">Dono</label>
-                    <input type="text" class="form-control" id="nome_dono" placeholder="Digite o nome do dono">
-                </div>
-
-                <div class="col-12 col-md-4 col-lg-2">
-                    <label for="tipo" class="form-label">Tipo de serviço</label>
-                    <select class="form-select" id="tipo" name="servico">
-                        <option value="Banho&Tosa">Banho&Tosa</option>
-                        <option value="Serviços Veterinários">Serviços Veterinários</option>
-                        <option value="Exames de Laboratório">Exames de Laboratório</option>
-                        <option value="Táxis Doc">Táxis Doc</option>
-                        <option value="Hospedagem">Hospedagem</option>
-                        <option value="Delivery">Delivery</option>
-                    </select>
-                </div>
-                
-                <div class="col-12 col-md-3 col-lg-2 d-flex align-items-end">
-                    <button type="submit" class="btn btn-primary w-100">Pesquisar</button>
-                </div>
+    <!-- Campos e botões para pesquisar e novo serviço -->
+    <div class="form-container mb-4">
+        <div class="card">
+            <div class="card-body">
+                <form id="filter-form">
+                    <div class="row g-3">
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <label for="nome" class="form-label">Nome</label>
+                            <input type="text" class="form-control" id="nome" placeholder="Digite o nome do serviço">
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <label for="preco" class="form-label">Preço</label>
+                            <input type="text" class="form-control" id="preco" placeholder="Digite o preço">
+                        </div>
+                        <div class="col-12 col-md-3 col-lg-2 d-flex align-items-end">
+                            <button type="button" class="btn btn-primary w-100" onclick="filterServices()">Pesquisar</button>
+                        </div>
+                        <div class="col-12 col-md-3 col-lg-2 d-flex align-items-end">
+                            <a href="{{ url_for('form_servicos') }}" class="btn btn-success w-100">Novo Serviço</a>
+                        </div>
+                    </div>
+                </form>
             </div>
-        </form>
+        </div>
+    </div>
 
-        <div class="card-body table-overflow">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Nome</th>
-                        <th scope="col">Dono</th>
-                        <th scope="col">Tipo de Serviço</th>
-                        <th scope="col" colspan="2">Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for pet, dono in pets %}
-                    <tr>
-                        <th scope="row">{{ loop.index }}</th>
-                        <td>{{ pet.name }}</td>
-                        <td>{{ dono }}</td>
-                        <td>{{ pet.tipo_de_servico }}</td>
-                        <td>
-                            <a href="{{ url_for('editar_pet', id=pet.pet_id) }}">
-                                <button type="button" class="btn btn-info">
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                </button>
+    <!-- Exibição dos serviços em cards -->
+    <div class="container">
+        <div class="row row-cols-1 row-cols-md-3 g-4"> <!-- 3 colunas em telas médias ou maiores -->
+            {% for servico in servicos %}
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ servico.name }}</h5>
+                        <p class="card-price">R$ {{ "%.2f"|format(servico.price) }}</p>
+                        <p class="card-text">{{ servico.description }}</p>
+                        <div class="d-flex justify-content-end btn-group-right">
+                            <a href="#" class="btn btn-info btn-sm" title="Editar Serviço">
+                                <i class="fa-solid fa-pen-to-square"></i>
                             </a>
-                        </td>
-                        <td>
-                            <form id="deleteForm" action="{{ url_for('delete_pet', id=pet.pet_id) }}" method="POST" style="display:inline;">
-                                <button type="button" class="btn btn-danger" 
+                            <form action="#" method="POST" style="display:inline;">
+                                <button type="button" class="btn btn-danger btn-sm" 
                                     data-bs-toggle="modal" 
-                                    data-bs-target="#confirmDeleteModal"
-                                    data-item-id="{{ pet.pet_id }}"
-                                    data-item-type="pet">
+                                    data-bs-target="#confirmDeleteModal" 
+                                    data-item-id="{{ servico.id }}" 
+                                    data-item-type="servicos" 
+                                    title="Deletar Serviço">
                                     <i class="fa-solid fa-trash-can"></i>
                                 </button>
                             </form>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>                
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
         </div>
-        
     </div>
-</div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="../../static/js/temporizador_mensagem.js"></script>
-<script src="../../static/js/modal_confirm.js"></script>
-
-<div class="text-center">
-    <button type="submit" class="btn btn-primary btn-small">Criar novo serviço</button>
-</div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <script src="../../static/js/temporizador_mensagem.js"></script>
+    <script src="../../static/js/modal_confirm.js"></script>
+    <!-- Adicione este script se quiser implementar a filtragem -->
+    <script>
+        function filterServices() {
+            // Lógica de filtragem aqui (ex.: AJAX ou recarregar página)
+            console.log("Pesquisar serviços...");
+        }
+    </script>
 </body>
 </html>

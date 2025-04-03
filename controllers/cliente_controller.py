@@ -1,12 +1,14 @@
-from main import app
-from flask import request, flash, render_template, redirect, url_for, session
+from flask import Blueprint, request, flash, render_template, redirect, url_for, session, make_response
 from sqlalchemy.exc import IntegrityError
 from models.cliente_model import *
 from models.conexao import *
 from models.usuario_model import Usuario
+from utils.relatorio_clientes import gerar_relatorio_clientes
 
+# Cria o Blueprint para o controller de clientes
+cliente_bp = Blueprint('cliente_bp', __name__)
 
-@app.route("/cliente", methods=['GET'])
+@cliente_bp.route("/cliente", methods=['GET'])
 def listar_clientes():
     SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
     db = SessionLocal()
@@ -16,22 +18,22 @@ def listar_clientes():
     db.close()
     return render_template("/cliente/lista_cliente.html", clientes=clientes, nome_usuario=nome_usuario)
 
-@app.route("/cliente/inserir", methods=['GET'])
+@cliente_bp.route("/cliente/inserir", methods=['GET'])
 def cliente():
     return render_template("/cliente/create_cliente.html")
 
-@app.route("/pet/inserir", methods=['GET'])
-@app.route("/pet/inserir/<id>", methods=['GET'])
+@cliente_bp.route("/pet/inserir", methods=['GET'])
+@cliente_bp.route("/pet/inserir/<id>", methods=['GET'])
 def pet(id=None):
     # Recupera o cliente_id da URL (se fornecido) ou da sessão
     cliente_id = id or session.get("cliente_id")
     if not cliente_id:
         flash("Cliente não encontrado!", "error")
-        return redirect(url_for('listar_clientes'))
+        return redirect(url_for('cliente_bp.listar_clientes'))
     
     return render_template("/pet/create_pet.html", client_id=cliente_id)
 
-@app.route("/cliente/inserir", methods=['POST'])
+@cliente_bp.route("/cliente/inserir", methods=['POST'])
 def create_client():
     try:
         if request.method == 'POST':    
@@ -55,23 +57,23 @@ def create_client():
             session["cliente_id"] = new_client.client_id
 
             # Redireciona para o cadastro do pet
-            return redirect(url_for('pet'))
+            return redirect(url_for('cliente_bp.pet'))
         
     except IntegrityError as e:
         if "Duplicate entry" in str(e.orig):
             flash("Erro: CPF já cadastrado!", "danger")
         else:
             flash("Erro ao cadastrar cliente. Tente novamente.", "danger")
-        return redirect(url_for("cliente"))
+        return redirect(url_for("cliente_bp.cliente"))
 
     except Exception as e:
         flash("Ocorreu um erro inesperado: {}".format(str(e)), "danger")
-        return redirect(url_for("cliente"))
+        return redirect(url_for("cliente_bp.cliente"))
     
     finally:
         db.close()
 
-@app.route('/cliente/editar/<id>', methods=['GET'])
+@cliente_bp.route('/cliente/editar/<id>', methods=['GET'])
 def editar_cliente(id):
     SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
     db = SessionLocal()
@@ -79,14 +81,14 @@ def editar_cliente(id):
         cliente = db.query(Cliente).filter_by(client_id=id).first()
         if not cliente:
             flash("Cliente não encontrado!", "danger")
-            return redirect(url_for('listar_clientes'))
+            return redirect(url_for('cliente_bp.listar_clientes'))
 
         return render_template('cliente/editar_cliente.html', cliente=cliente)
 
     finally:
         db.close()
 
-@app.route('/cliente/atualizar/<id>', methods=['POST'])
+@cliente_bp.route('/cliente/atualizar/<id>', methods=['POST'])
 def atualizar_cliente(id):
     SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
     db = SessionLocal()
@@ -94,7 +96,7 @@ def atualizar_cliente(id):
         cliente = db.query(Cliente).filter_by(client_id=id).first()
         if not cliente:
             flash("Cliente não encontrado!", "danger")
-            return redirect(url_for('listar_clientes'))
+            return redirect(url_for('cliente_bp.listar_clientes'))
 
         # Pegando os dados do formulário
         cliente.name = request.form['nome']
@@ -105,17 +107,17 @@ def atualizar_cliente(id):
 
         db.commit()
         flash("Cliente atualizado com sucesso!", "success")
-        return redirect(url_for('listar_clientes'))
+        return redirect(url_for('cliente_bp.listar_clientes'))
 
     except Exception as e:
         db.rollback()
         flash(f"Erro ao atualizar cliente: {e}", "danger")
-        return redirect(url_for('listar_clientes'))
+        return redirect(url_for('cliente_bp.listar_clientes'))
 
     finally:
         db.close()
 
-@app.route('/cliente/delete/<id>', methods=['POST'])
+@cliente_bp.route('/cliente/delete/<id>', methods=['POST'])
 def delete_cliente(id):
     SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
     db = SessionLocal()
@@ -128,7 +130,7 @@ def delete_cliente(id):
         db.commit()
 
         flash("Cliente deletado com sucesso!", "success")
-        return redirect(url_for('listar_clientes'))  # Redireciona para a página de listagem
+        return redirect(url_for('cliente_bp.listar_clientes'))  # Redireciona para a página de listagem
 
     except Exception as e:
         db.rollback()
@@ -136,3 +138,18 @@ def delete_cliente(id):
     
     finally:
         db.close()
+
+@cliente_bp.route("/cliente/relatorio", methods=['GET'])
+def gerar_relatorio():
+    caminho_pdf = "relatorio_clientes.pdf"
+    gerar_relatorio_clientes(caminho_pdf)
+    
+    # Lê o arquivo PDF gerado
+    with open(caminho_pdf, 'rb') as f:
+        pdf_data = f.read()
+    
+    # Cria a resposta com cabeçalhos personalizados
+    response = make_response(pdf_data)
+    response.headers['Content-Type'] = 'application/pdf'
+    response.headers['Content-Disposition'] = 'inline; filename="relatorio_clientes.pdf"'
+    return response

@@ -35,10 +35,13 @@
                     </div>
                     
                     <div class="col-12 col-md-3 col-lg-2 d-flex align-items-end">
-                        <button type="button" class="btn btn-primary w-100" onclick="filterTable()">Pesquisar</button>
+                        <button type="button" class="btn btn-primary w-100" onclick="filterTable()">Pesquisar<i class="fa-solid fa-magnifying-glass"></i></button>
                     </div>
                     <div class="col-12 col-md-3 col-lg-2 d-flex align-items-end">
-                        <button type="submit" formaction="{{ url_for('cliente') }}" class="btn btn-success w-100">Novo Cliente</button>
+                        <button type="submit" formaction="{{ url_for('cliente_bp.cliente') }}" class="btn btn-success w-100">Novo Cliente <i class="fa-regular fa-square-plus"></i></button>
+                    </div>
+                    <div class="col-12 col-md-3 col-lg-2 d-flex align-items-end">
+                        <a href="{{ url_for('cliente_bp.gerar_relatorio') }}" target="_blank" class="btn btn-primary w-100">Gerar PDF<i class="fa-regular fa-file-pdf"></i></a>
                     </div>
                 </div>
             </form>
@@ -63,18 +66,18 @@
                             <td>{{ cliente.phone }}</td>
                             </td>
                             <td class="icons">
-                                <a href="{{ url_for('pet', id=cliente.client_id) }}">
+                                <a href="{{ url_for('cliente_bp.pet', id=cliente.client_id) }}">
                                     <button type="button" class="btn btn-success" title="Cadastrar Pet">
                                         <i class="fa-solid fa-paw"></i>
                                     </button>
                                 </a>
                             
-                                <a href="{{ url_for('editar_cliente', id=cliente.client_id) }}">
+                                <a href="{{ url_for('cliente_bp.editar_cliente', id=cliente.client_id) }}">
                                     <button type="button" class="btn btn-info" title="Editar Cliente">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </button>
                                 </a>
-                                <form id="deleteForm" action="{{ url_for('delete_cliente', id=cliente.client_id) }}" method="POST" style="display:inline;">
+                                <form id="deleteForm" action="{{ url_for('cliente_bp.delete_cliente', id=cliente.client_id) }}" method="POST" style="display:inline;">
                                     <button type="button" class="btn btn-danger" 
                                         data-bs-toggle="modal" 
                                         data-bs-target="#confirmDeleteModal"
